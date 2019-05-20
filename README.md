@@ -1,7 +1,7 @@
 # easy2acl.py
 
 This short script is useful in the scenario where peer-reviewing is done using EasyChair but proceedings are to be produced with aclpub. The user must retrieve information from EasyChair before running the script.
- 
+
 easy2acl.py produces two files for use with aclpub; the `db` file, and an archive `final.tar.gz` containing a folder `final`, which in turn contains the PDF files of the accepted submissions. You should make yourself familiar with the db file, which you can read more about in the aclpub documentation.
 
 Please report bugs and suggest improvements.
@@ -10,22 +10,22 @@ Please report bugs and suggest improvements.
 
 The Python 3 packages PyPDF2 and unicode_tex are needed and can be installed using pip. The tar command is also needed (and should be available at PATH).
 
-## How to run 
+## How to run
 
-Create the files `accepted` and `submissions` and the folder `pdf` as shown in [Getting data from EasyChair](#getting-data-from-easychair). Before running this script, your file structure should look like this: 
+Create the files `accepted` and `submissions` and the folder `pdf` as shown in [Getting data from EasyChair](#getting-data-from-easychair). Before running this script, your file structure should look like this:
 
-    |-- easy2acl.py 
-    |-- submissions 
-    |-- accepted 
-    `-- pdf 
-        |-- ..._submission_1.pdf 
-        |-- ..._submission_2.pdf 
+    |-- easy2acl.py
+    |-- submissions
+    |-- accepted
+    `-- pdf
+        |-- ..._submission_1.pdf
+        |-- ..._submission_2.pdf
         `-- ...
 
 Run the script:
 
     $ python3 easy2acl.py
- 
+
 When the script has finished, you will find the files `db` and `final.tar.gz` in the same folder.  Place these files in your `proceedings` folder as suggested by the aclpub documentation, and proceed as you usually would with aclpub.
 
 ## Additional information
@@ -33,13 +33,13 @@ When the script has finished, you will find the files `db` and `final.tar.gz` in
 It is your responsibility to make sure that the `db` file is correct. The author(s) of this script make no claims that this script works as intended. Below are some things to look out for regarding the data you get from EasyChair, and the assumptions made by the script.
 
 * **Title of submission in EasyChair does not match title in the submitted PDF.** In case of a substantial change to the title, and depending on the policy of your conference, you might want to contact the Program Chair.  You might want to do so anyways in case the title is used anywhere else, for example in the conference program.
-	
+
 * **Order of authors of submission in EasyChair does not match the order in the submitted PDF.**
 
 * **Order of author name internally, as in `<first> <last>`, in EasyChair is incorrect.** This can cause problems with the order of the papers since they are written to the `db` file in alphabetical order according to the first author's last name.
 
 * **Author has multiple names before the last name, e.g. `<first> <middle> <last>`.** This can cause problems with the order of the papers since they are written in alphabetical order according to the first author's last name. The script assumes the format `<first> <last> [<last>] [<last>] ...`.
-    
+
 * **Some diacritics and special characters in names are not converted by the script.** Certain characters that you expected to be translated into LaTeX escape codes, but were not, might be because they are not handled in the unicode_tex package. Make sure that the name was properly written in EasyChair; it might be that the person who entered the name forgot to add diacritics. If you want to be nice, you can check the names in your resulting `db` file against the names of the actual submissions and make the appropriate changes to the `db` file.
 
 ## Getting data from EasyChair

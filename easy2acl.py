@@ -1,32 +1,32 @@
 #!/usr/bin/env python3
 
 #,----
-#| easy2acl.py - Convert data from EasyChair for use with aclpub                
-#|                                                                              
+#| easy2acl.py - Convert data from EasyChair for use with aclpub
+#|
 #| Author: Nils Blomqvist
-#|                                                                              
+#|
 #| Documentation
 #| -------------
-#| Full documentation at http://github.com/nblomqvist/easy2acl.    
-#|                                                                              
-#| Quick reference                                                              
-#| ---------------                                                              
-#| Before running this script, your file structure should look like this:       
-#|                                                                              
-#| |-- easy2acl.py                                                              
-#| |-- submissions                                                              
-#| |-- accepted                                                                 
-#| `-- pdf                                                                      
-#|     |-- ..._submission_1.pdf                                                 
-#|     |-- ..._submission_2.pdf                                                 
-#|     `-- ...                                                                  
-#|                                                                              
-#| Run the script:                                                              
-#|                                                                              
-#|     $ ./easy2acl.py                                                          
-#|                                                                              
+#| Full documentation at http://github.com/nblomqvist/easy2acl.
+#|
+#| Quick reference
+#| ---------------
+#| Before running this script, your file structure should look like this:
+#|
+#| |-- easy2acl.py
+#| |-- submissions
+#| |-- accepted
+#| `-- pdf
+#|     |-- ..._submission_1.pdf
+#|     |-- ..._submission_2.pdf
+#|     `-- ...
+#|
+#| Run the script:
+#|
+#|     $ ./easy2acl.py
+#|
 #| When the script has finished, you will find the files 'db' and 'final.tar.gz'
-#| in the same folder.                                                          
+#| in the same folder.
 #`----
 
 from shutil import copy, rmtree
@@ -41,17 +41,17 @@ def texify(string):
 
     """
     output = ''
-    
+
     for w in string.split():
         output += unicode_to_tex(w) + ' '
     output = output.strip()
-    
+
     return output
 
 #,----
 #| Append each accepted submission, as a tuple, to the 'accepted' list.
 #`----
-accepted = []             
+accepted = []
 
 with open('accepted') as accepted_file:
     for line in accepted_file:
@@ -85,7 +85,7 @@ with open('submissions') as submissions_file:
             for last in author_fullname[1:]:
                 author_last_name += last + ' '
             author_last_name.strip()
-                
+
             authors_clean.append((author_last_name, author_first_name))
 
         submissions.append((submission_id, title, authors_clean))
@@ -109,10 +109,10 @@ for pdf in listdir('pdf'):
 #| Add the submissions whose submission ID is found in the 'accepted' list to a
 #| new list 'final_papers'. A match must made for both the submission ID and the
 #| title (just in case).
-#|                                                                           
+#|
 #| Copy the PDFs whose submission ID is found in the 'accepted' list to a
 #| directory 'final'.
-#|                                                                           
+#|
 #| Finally, compress the 'final' directory into 'final.tar.gz' and remove folder
 #| 'final'.
 #`----
@@ -138,7 +138,7 @@ rmtree('final')
 
 #,----
 #| Write the db file.
-#|                                                                         
+#|
 #| Sort papers naturally by key 'first author's last name'.
 #`----
 final_papers = sorted(final_papers, key=lambda paper: paper[2][0][0])
@@ -148,20 +148,20 @@ with open('db', 'w') as db:
         id = paper[0]
         title = texify(paper[1])
         authors = paper[2]
-        
+
         db.write('P: ' + id + '\n')
         db.write('T: ' + title + '\n')
         for author in authors:
             lastname = texify(author[0])
             firstname = texify(author[1])
-            
+
             db.write('A: ' + lastname + ', ' + firstname + '\n')
 
         for pdf in pdfs:
             if paper[0] == pdf[0]:
                 path = pdf[3]
                 length = str(pdf[1])
-                
+
                 db.write('F: ' + path + '\n')
                 db.write('L: ' + length + '\n')
                 break
