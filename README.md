@@ -61,3 +61,7 @@ Go to _Status -> All papers_. Here we find the information on what submissions a
 Neither of the two pages we saved data from alone contain all the information we need to create the `db` file – the _Submissions_ page does not say which ones are accepted, and the _Status page_ does not tell us the author names of the papers. By taking the intersection of the submission IDs of the two lists that we saved, we get the information we need about the accepted submissions.
 
 Copying the table contents directly from the web browser results in a nice tab separated list when pasting into a text editor. This makes it easy to work with, and if the table format should change in EasyChair it is simple to adapt the script.
+
+# Contributors
+
+* Asad Sayeed
