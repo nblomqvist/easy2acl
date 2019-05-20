@@ -54,7 +54,7 @@ We now have information about all the submissions but not whether they are accep
 
 ### A list of the accepted submissions
 
-Go to _Status -> All papers_. Here we find the information on what submissions are accepted. Copy the content of this table as you did with the previous one, except only select the lines of the _ACCEPTED_ papers. It is very important that you do not include any of the _REJECTED_ papers when selecting the content, or else these papers will be included in the resulting `db` file as well. Save the content as `accepted`, and make sure that each row in the table corresponds to one line in the resulting file. A sample `accepted` file is available [here](example-files/accepted).
+Go to _Status -> All papers_. Here we find the information on what submissions are accepted. Copy the content of this table as you did with the previous one. Save the content as `accepted`, and make sure that each row in the table corresponds to one line in the resulting file. A sample `accepted` file is available [here](example-files/accepted).
 
 ### A short explanation of the steps above
 

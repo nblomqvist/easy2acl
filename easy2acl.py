@@ -56,8 +56,11 @@ accepted = []
 with open('accepted') as accepted_file:
     for line in accepted_file:
         entry = line.split("\t")
-        submission_id = entry[0]
-        title = entry[1]
+
+        if entry[-1][0] == "A": # if it's "ACCEPT"
+            #print(entry[-1])
+            submission_id = entry[0]
+            title = entry[1]
 
         accepted.append((submission_id, title))
 
@@ -129,7 +132,8 @@ for a in accepted:
             copy(current_path, final_path)
             break
 
-Popen(['tar', '-czf', 'final.tar.gz', 'final'])
+myprocess = Popen(['tar', '-czf', 'final.tar.gz', 'final'])
+myprocess.wait()
 rmtree('final')
 
 #,----
